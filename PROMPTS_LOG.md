@@ -43,6 +43,24 @@ A chronological log of every agent action, teammate prompt, and key decision mad
 
 ---
 
+## Session: 2026-04-13
+
+### Bug Fix — Google idToken is null
+- **User:** Reported sign-in failure: "Google idToken is null"
+- **Root cause:** `GoogleSignIn` instantiated without `serverClientId`. On Android, `google_sign_in` only includes an `idToken` in the response when a Web Client ID is provided via `serverClientId`. Without it, `googleAuth.idToken` is always `null`.
+- **Fix:** Added `googleWebClientId` constant to `lib/core/supabase_config.dart` and passed it as `serverClientId` to `GoogleSignIn()` in `lib/core/auth/auth_service.dart`.
+- **User action required:** Set `googleWebClientId` in `supabase_config.dart` to the Web OAuth Client ID from Google Cloud Console (must match what is configured in Supabase → Auth → Providers → Google).
+- **Commit:** `fix: pass serverClientId to GoogleSignIn so idToken is populated on Android`
+
+### Feature Update — Available Relocations rename + API fix
+- **User:** Requested rename of "Available Jobs" section to "Available Relocations" and API endpoint change to `GET /api/v1/relocations?status=PENDING`
+- **Changes:**
+  - `lib/core/api/relocation_api.dart` — `fetchPendingRelocations()` now uses `GET /api/v1/relocations?status=PENDING` (was `POST /api/v1/relocations` without query param)
+  - `lib/features/available_jobs/available_jobs_screen.dart` — AppBar title, drawer nav label, empty state text all updated to "Available Relocations"
+- **Commit:** `feat: rename Available Jobs to Available Relocations and use GET ?status=PENDING`
+
+---
+
 ## Teammate Prompts
 
 ### auth-agent

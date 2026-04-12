@@ -15,7 +15,7 @@ class AvailableJobsScreen extends ConsumerWidget {
     final jobsAsync = ref.watch(availableJobsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Available Jobs')),
+      appBar: AppBar(title: const Text('Available Relocations')),
       drawer: const _AppDrawer(),
       body: jobsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -25,7 +25,7 @@ class AvailableJobsScreen extends ConsumerWidget {
             children: [
               const Icon(Icons.error_outline, size: 48, color: Colors.red),
               const SizedBox(height: 12),
-              Text('Failed to load jobs',
+              Text('Failed to load relocations',
                   style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 8),
               ElevatedButton(
@@ -43,7 +43,7 @@ class AvailableJobsScreen extends ConsumerWidget {
                   children: [
                     Icon(Icons.search_off, size: 64, color: Colors.grey),
                     SizedBox(height: 12),
-                    Text('No available jobs right now'),
+                    Text('No available relocations right now'),
                   ],
                 ),
               )
@@ -103,7 +103,7 @@ class _AppDrawer extends ConsumerWidget {
             const Divider(),
             ListTile(
               leading: const Icon(Icons.search),
-              title: const Text('Available Jobs'),
+              title: const Text('Available Relocations'),
               onTap: () => Navigator.pop(context),
             ),
             ListTile(

@@ -7,9 +7,12 @@ class RelocationApi {
 
   final Dio _dio;
 
-  /// POST /api/v1/relocations — returns PENDING relocations available to book
+  /// GET /api/v1/relocations?status=PENDING — returns relocations available to book
   Future<List<Relocation>> fetchPendingRelocations() async {
-    final response = await _dio.post<List<dynamic>>('/api/v1/relocations');
+    final response = await _dio.get<List<dynamic>>(
+      '/api/v1/relocations',
+      queryParameters: {'status': 'PENDING'},
+    );
     return (response.data ?? [])
         .cast<Map<String, dynamic>>()
         .map(Relocation.fromJson)
