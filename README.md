@@ -42,11 +42,21 @@ Get it from: Supabase Dashboard → Your Project → Settings → API → `anon`
 ### 3. Configure Google Sign-In
 
 1. Go to [Google Cloud Console](https://console.cloud.google.com) → APIs & Services → Credentials
-2. Create an OAuth 2.0 Client ID for Android
-3. Package name: `com.flovi.flovi_driver`
-4. SHA-1: run `cd android && ./gradlew signingReport` and copy the debug SHA-1
+2. Create an OAuth 2.0 Client ID of type **Web application** — copy this Client ID and Secret
+3. In Supabase Dashboard → Authentication → Providers → Google: paste the Web Client ID and Secret
+4. Back in Google Cloud Console, create a second OAuth 2.0 Client ID of type **Android**
+   - Package name: `com.flovi.flovi_driver`
+   - SHA-1: run `cd android && ./gradlew signingReport` and copy the debug SHA-1
 5. Download `google-services.json` and place it at `android/app/google-services.json`
-6. In Supabase Dashboard → Authentication → Providers → Google: add your Client ID and Secret
+6. Open `lib/core/supabase_config.dart` and set `googleWebClientId` to the **Web** Client ID from step 2:
+
+```dart
+const googleWebClientId = 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com';
+```
+
+> **Why the Web Client ID?** Android's `google_sign_in` package only includes an `idToken` in the
+> sign-in response when a `serverClientId` (Web Client ID) is provided. Without it, `idToken` is
+> always `null` and Supabase sign-in will fail.
 
 ### 4. Configure Supabase redirect URL for OAuth
 

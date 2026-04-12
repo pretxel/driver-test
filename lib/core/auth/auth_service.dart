@@ -1,10 +1,14 @@
 // lib/core/auth/auth_service.dart
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../supabase_config.dart';
 
 class AuthService {
   final _googleSignIn = GoogleSignIn(
     scopes: ['email', 'profile'],
+    // Required on Android: tells Google to include an ID token in the response.
+    // Must match the Web Client ID configured in Supabase → Auth → Providers → Google.
+    serverClientId: googleWebClientId,
   );
 
   SupabaseClient get _client => Supabase.instance.client;
