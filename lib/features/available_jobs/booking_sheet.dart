@@ -53,7 +53,7 @@ class BookingSheetContent extends ConsumerWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            '${relocation.vehicleMake} ${relocation.vehicleModel}',
+            '${relocation.origin} → ${relocation.destination}',
             style: Theme.of(context)
                 .textTheme
                 .headlineSmall
@@ -63,16 +63,34 @@ class BookingSheetContent extends ConsumerWidget {
           _DetailRow(
             icon: Icons.radio_button_checked,
             color: Colors.green,
-            label: 'Pick up',
-            value: relocation.pickupLocation,
+            label: 'Origin',
+            value: relocation.origin,
           ),
           const SizedBox(height: 12),
           _DetailRow(
             icon: Icons.location_on,
             color: Colors.red,
-            label: 'Drop off',
-            value: relocation.dropoffLocation,
+            label: 'Destination',
+            value: relocation.destination,
           ),
+          const SizedBox(height: 12),
+          _DetailRow(
+            icon: Icons.calendar_today,
+            color: Colors.blue,
+            label: 'Date',
+            value: '${relocation.date.day.toString().padLeft(2, '0')}/'
+                '${relocation.date.month.toString().padLeft(2, '0')}/'
+                '${relocation.date.year}',
+          ),
+          if (relocation.notes != null) ...[
+            const SizedBox(height: 12),
+            _DetailRow(
+              icon: Icons.notes,
+              color: Colors.grey,
+              label: 'Notes',
+              value: relocation.notes!,
+            ),
+          ],
           const SizedBox(height: 28),
           if (bookState.hasError)
             const Padding(
@@ -94,7 +112,7 @@ class BookingSheetContent extends ConsumerWidget {
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                            content: Text('Job booked successfully!')),
+                            content: Text('Relocation booked successfully!')),
                       );
                     }
                   },

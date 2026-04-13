@@ -12,16 +12,14 @@ import 'available_jobs_provider_test.mocks.dart';
 void main() {
   final sampleJob = Relocation(
     id: 'job-1',
-    vehicleMake: 'Toyota',
-    vehicleModel: 'Camry',
-    pickupLocation: 'Depot A',
-    dropoffLocation: 'Station B',
+    origin: 'Madrid',
+    destination: 'Valencia',
+    date: DateTime(2026, 4, 20),
     status: RelocationStatus.pending,
     createdAt: DateTime(2026, 4, 12),
   );
 
-  testWidgets('BookingSheet shows vehicle name and CONFIRM button',
-      (tester) async {
+  testWidgets('BookingSheet shows route and CONFIRM button', (tester) async {
     final mockApi = MockRelocationApi();
     await tester.pumpWidget(
       ProviderScope(
@@ -33,7 +31,7 @@ void main() {
         ),
       ),
     );
-    expect(find.text('Toyota Camry'), findsOneWidget);
+    expect(find.text('Madrid → Valencia'), findsOneWidget);
     expect(find.text('CONFIRM BOOKING'), findsOneWidget);
   });
 
@@ -43,10 +41,9 @@ void main() {
     when(mockApi.fetchPendingRelocations()).thenAnswer((_) async => []);
     when(mockApi.bookRelocation('job-1')).thenAnswer((_) async => Relocation(
           id: 'job-1',
-          vehicleMake: 'Toyota',
-          vehicleModel: 'Camry',
-          pickupLocation: 'Depot A',
-          dropoffLocation: 'Station B',
+          origin: 'Madrid',
+          destination: 'Valencia',
+          date: DateTime(2026, 4, 20),
           status: RelocationStatus.inProgress,
           createdAt: DateTime(2026, 4, 12),
         ));

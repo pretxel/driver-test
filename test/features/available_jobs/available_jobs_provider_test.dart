@@ -17,10 +17,9 @@ void main() {
 
   final sampleJob = Relocation(
     id: 'job-1',
-    vehicleMake: 'Toyota',
-    vehicleModel: 'Camry',
-    pickupLocation: 'Depot A',
-    dropoffLocation: 'Station B',
+    origin: 'Madrid',
+    destination: 'Valencia',
+    date: DateTime(2026, 4, 20),
     status: RelocationStatus.pending,
     createdAt: DateTime(2026, 4, 12),
   );

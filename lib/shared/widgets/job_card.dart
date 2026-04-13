@@ -25,7 +25,7 @@ class JobCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${relocation.vehicleMake} ${relocation.vehicleModel}',
+                    '${relocation.origin} → ${relocation.destination}',
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -37,19 +37,31 @@ class JobCard extends StatelessWidget {
               _LocationRow(
                 icon: Icons.radio_button_checked,
                 color: Colors.green,
-                label: relocation.pickupLocation,
+                label: relocation.origin,
               ),
               const SizedBox(height: 4),
               _LocationRow(
                 icon: Icons.location_on,
                 color: Colors.red,
-                label: relocation.dropoffLocation,
+                label: relocation.destination,
+              ),
+              const SizedBox(height: 4),
+              _LocationRow(
+                icon: Icons.calendar_today,
+                color: Colors.blue,
+                label: _formatDate(relocation.date),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  String _formatDate(DateTime date) {
+    return '${date.day.toString().padLeft(2, '0')}/'
+        '${date.month.toString().padLeft(2, '0')}/'
+        '${date.year}';
   }
 }
 
@@ -71,8 +83,7 @@ class _LocationRow extends StatelessWidget {
         Icon(icon, size: 16, color: color),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(label,
-              style: Theme.of(context).textTheme.bodyMedium),
+          child: Text(label, style: Theme.of(context).textTheme.bodyMedium),
         ),
       ],
     );

@@ -7,31 +7,31 @@ import 'package:flovi_driver/shared/widgets/job_card.dart';
 void main() {
   final relocation = Relocation(
     id: 'test-1',
-    vehicleMake: 'Ford',
-    vehicleModel: 'Focus',
-    pickupLocation: 'Main Depot',
-    dropoffLocation: 'Airport T1',
+    origin: 'Madrid',
+    destination: 'Valencia',
+    date: DateTime(2026, 4, 20),
     status: RelocationStatus.pending,
     createdAt: DateTime(2026, 4, 12),
   );
 
-  testWidgets('JobCard displays vehicle make and model', (tester) async {
+  testWidgets('JobCard displays origin and destination', (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(body: JobCard(relocation: relocation, onTap: () {})),
       ),
     );
-    expect(find.text('Ford Focus'), findsOneWidget);
+    expect(find.text('Madrid → Valencia'), findsOneWidget);
   });
 
-  testWidgets('JobCard displays pickup and dropoff', (tester) async {
+  testWidgets('JobCard displays origin and destination in location rows',
+      (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(body: JobCard(relocation: relocation, onTap: () {})),
       ),
     );
-    expect(find.text('Main Depot'), findsOneWidget);
-    expect(find.text('Airport T1'), findsOneWidget);
+    expect(find.text('Madrid'), findsWidgets);
+    expect(find.text('Valencia'), findsWidgets);
   });
 
   testWidgets('JobCard calls onTap when tapped', (tester) async {
