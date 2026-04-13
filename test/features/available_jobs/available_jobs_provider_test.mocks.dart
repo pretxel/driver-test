@@ -52,10 +52,11 @@ class MockRelocationApi extends _i1.Mock implements _i3.RelocationApi {
       ) as _i4.Future<List<_i2.Relocation>>);
 
   @override
-  _i4.Future<List<_i2.Relocation>> fetchMyRelocations() => (super.noSuchMethod(
+  _i4.Future<List<_i2.Relocation>> fetchMyRelocations(String? userId) =>
+      (super.noSuchMethod(
         Invocation.method(
           #fetchMyRelocations,
-          [],
+          [userId],
         ),
         returnValue: _i4.Future<List<_i2.Relocation>>.value(<_i2.Relocation>[]),
       ) as _i4.Future<List<_i2.Relocation>>);

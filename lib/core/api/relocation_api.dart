@@ -19,19 +19,22 @@ class RelocationApi {
         .toList();
   }
 
-  /// GET /api/v1/relocations — returns driver's own jobs (non-pending)
-  Future<List<Relocation>> fetchMyRelocations() async {
-    final response = await _dio.get<List<dynamic>>('/api/v1/relocations');
+  /// GET /api/v1/relocations?userId=<id> — returns driver's own jobs
+  Future<List<Relocation>> fetchMyRelocations(String userId) async {
+    final response = await _dio.get<List<dynamic>>(
+      '/api/v1/relocations',
+      queryParameters: {'userId': userId},
+    );
     return (response.data ?? [])
         .cast<Map<String, dynamic>>()
         .map(Relocation.fromJson)
         .toList();
   }
 
-  /// PUT /api/v1/relocations/{id} — books a relocation (PENDING → IN_PROGRESS)
+  /// PUT /api/v1/relocations/{id}/confirm — confirms a relocation booking
   Future<Relocation> bookRelocation(String id) async {
-    final response =
-        await _dio.put<Map<String, dynamic>>('/api/v1/relocations/$id');
+    final response = await _dio
+        .put<Map<String, dynamic>>('/api/v1/relocations/$id/confirm');
     return Relocation.fromJson(response.data!);
   }
 }

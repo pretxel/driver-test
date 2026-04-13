@@ -13,6 +13,8 @@ void main() {
 
   setUp(() => mockApi = MockRelocationApi());
 
+  const testUserId = 'user-123';
+
   final jobs = [
     Relocation(
       id: 'j1',
@@ -32,16 +34,19 @@ void main() {
     ),
   ];
 
-  test('myJobsProvider loads jobs from GET /relocations', () async {
-    when(mockApi.fetchMyRelocations()).thenAnswer((_) async => jobs);
+  test('myJobsProvider loads jobs from GET /relocations?userId=', () async {
+    when(mockApi.fetchMyRelocations(testUserId)).thenAnswer((_) async => jobs);
 
     final container = ProviderContainer(
-      overrides: [relocationApiProvider.overrideWithValue(mockApi)],
+      overrides: [
+        relocationApiProvider.overrideWithValue(mockApi),
+        currentUserIdProvider.overrideWithValue(testUserId),
+      ],
     );
     addTearDown(container.dispose);
 
     final result = await container.read(myJobsProvider.future);
     expect(result, jobs);
-    verify(mockApi.fetchMyRelocations()).called(1);
+    verify(mockApi.fetchMyRelocations(testUserId)).called(1);
   });
 }
