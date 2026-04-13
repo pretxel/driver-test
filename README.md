@@ -34,7 +34,9 @@ flutter pub get
 Open `lib/core/supabase_config.dart` and replace the anon key:
 
 ```dart
+const supabaseUrl = 'SUBABASE_URL';
 const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY';
+const googleWebClientId = 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com';
 ```
 
 Get it from: Supabase Dashboard → Your Project → Settings → API → `anon` key.
