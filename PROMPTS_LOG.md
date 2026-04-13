@@ -76,6 +76,20 @@ A chronological log of every agent action, teammate prompt, and key decision mad
 - **Result:** `flutter analyze` — no issues; `flutter test` — 15/15 passed
 - **Commit:** `fix: update Relocation model to match real API response shape`
 
+### Feature Update — My Jobs uses userId query param
+- **User:** Requested `GET /api/v1/relocations?userId=<id>` for the My Jobs section
+- **Changes:**
+  - `lib/core/api/relocation_api.dart` — `fetchMyRelocations()` now accepts `userId` String and passes it as `?userId=` query parameter
+  - `lib/features/my_jobs/my_jobs_provider.dart` — Added `currentUserIdProvider` (reads `Supabase.instance.client.auth.currentUser!.id`); notifier reads userId from provider so it is overridable in tests
+  - `test/features/my_jobs/my_jobs_provider_test.dart` — Overrides `currentUserIdProvider` with `'user-123'`; verifies `fetchMyRelocations('user-123')` is called
+
+### Feature Update — Booking confirmation endpoint changed
+- **User:** Requested `PUT /api/v1/relocations/:id/confirm` for booking a relocation
+- **Changes:**
+  - `lib/core/api/relocation_api.dart` — `bookRelocation()` now calls `PUT /api/v1/relocations/$id/confirm` (was `PUT /api/v1/relocations/$id`)
+- **Result:** `flutter analyze` — no issues; `flutter test` — 15/15 passed
+- **Commit:** `feat: use userId query param for my jobs and /confirm endpoint for booking`
+
 ---
 
 ## Teammate Prompts
