@@ -1,0 +1,82 @@
+<h2>Flovi Driver — Design Section 3 of 3</h2>
+<p class="subtitle">Screens, Error Handling & Testing Strategy</p>
+
+<div class="section">
+  <h3>Screen Inventory</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:11px;">
+    <tr style="background:#1b2c3e;">
+      <th style="padding:8px;text-align:left;color:#64b5f6;">Screen</th>
+      <th style="padding:8px;text-align:left;color:#64b5f6;">Route</th>
+      <th style="padding:8px;text-align:left;color:#64b5f6;">Key Elements</th>
+    </tr>
+    <tr style="border-bottom:1px solid #1b2c3e;">
+      <td style="padding:8px;">Login</td>
+      <td style="padding:8px;font-family:monospace;">/login</td>
+      <td style="padding:8px;">Flovi logo, "Sign in with Google" button, loading state</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1b2c3e;">
+      <td style="padding:8px;">Available Jobs</td>
+      <td style="padding:8px;font-family:monospace;">/available-jobs</td>
+      <td style="padding:8px;">Scrollable job cards (PENDING), pull-to-refresh, empty state</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1b2c3e;">
+      <td style="padding:8px;">Booking Sheet</td>
+      <td style="padding:8px;font-family:monospace;">(bottom sheet)</td>
+      <td style="padding:8px;">Job details, CONFIRM button, loading spinner, error message</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1b2c3e;">
+      <td style="padding:8px;">My Jobs</td>
+      <td style="padding:8px;font-family:monospace;">/my-jobs</td>
+      <td style="padding:8px;">Tabbed view: IN_PROGRESS / COMPLETED / CANCELLED, pull-to-refresh</td>
+    </tr>
+    <tr>
+      <td style="padding:8px;">Side Drawer</td>
+      <td style="padding:8px;font-family:monospace;">(overlay)</td>
+      <td style="padding:8px;">Avatar, driver name, nav links, Sign Out</td>
+    </tr>
+  </table>
+</div>
+
+<div class="section">
+  <h3>Error Handling</h3>
+  <div style="background:#0d1b2a;border-radius:8px;padding:14px;font-size:11px;color:#e0e8f0;line-height:1.8;">
+    <div style="color:#64b5f6;font-weight:bold;margin-bottom:6px;">Network / API errors</div>
+    → Inline error widget on list screens with "Retry" button<br/>
+    → Snackbar for booking failures (non-blocking)<br/><br/>
+    <div style="color:#64b5f6;font-weight:bold;margin-bottom:6px;">Auth errors</div>
+    → Google sign-in cancelled → stay on login screen silently<br/>
+    → Session expired → redirect to /login via go_router redirect<br/><br/>
+    <div style="color:#64b5f6;font-weight:bold;margin-bottom:6px;">Empty states</div>
+    → "No available jobs right now" illustration on Available Jobs<br/>
+    → "No booked jobs yet" on My Jobs
+  </div>
+</div>
+
+<div class="section">
+  <h3>Testing Strategy</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:11px;">
+    <tr style="background:#1b2c3e;">
+      <th style="padding:8px;text-align:left;color:#64b5f6;">Type</th>
+      <th style="padding:8px;text-align:left;color:#64b5f6;">What's Tested</th>
+      <th style="padding:8px;text-align:left;color:#64b5f6;">Tool</th>
+    </tr>
+    <tr style="border-bottom:1px solid #1b2c3e;">
+      <td style="padding:8px;">Unit</td>
+      <td style="padding:8px;">Relocation model, JSON parsing, provider logic</td>
+      <td style="padding:8px;font-family:monospace;">flutter test</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1b2c3e;">
+      <td style="padding:8px;">Widget</td>
+      <td style="padding:8px;">Job card, booking sheet, login button rendering</td>
+      <td style="padding:8px;font-family:monospace;">flutter test</td>
+    </tr>
+    <tr>
+      <td style="padding:8px;">Integration</td>
+      <td style="padding:8px;">Full auth flow, browse → book → appear in My Jobs</td>
+      <td style="padding:8px;font-family:monospace;">flutter_test + mockito</td>
+    </tr>
+  </table>
+  <p style="font-size:11px;color:#64b5f6;margin-top:8px;">Testing agent will run <code>flutter test --coverage</code> and report results.</p>
+</div>
+
+<p class="subtitle" style="margin-top:16px;">Does this complete design look good? Reply "approve" in the terminal to write the spec doc.</p>

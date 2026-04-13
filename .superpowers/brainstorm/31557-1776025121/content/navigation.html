@@ -1,0 +1,87 @@
+<h2>How should drivers navigate the app?</h2>
+<p class="subtitle">After login, the driver lands on the main app. Pick the navigation pattern that feels right for this use case.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="bottom-nav" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1a1a2e;border-radius:10px;padding:16px;font-family:monospace;font-size:12px;color:#eee;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;">
+        <div style="flex:1;padding:8px 0;">
+          <div style="background:#16213e;border-radius:8px;padding:12px;margin-bottom:8px;color:#a0c4ff;">
+            📋 Available Jobs (Pending)
+          </div>
+          <div style="background:#0f3460;border-radius:6px;padding:8px;margin:4px 0;font-size:11px;">🚗 Relocate: Ford Focus → Airport</div>
+          <div style="background:#0f3460;border-radius:6px;padding:8px;margin:4px 0;font-size:11px;">🚗 Relocate: Toyota Camry → Downtown</div>
+          <div style="background:#0f3460;border-radius:6px;padding:8px;margin:4px 0;font-size:11px;">🚗 Relocate: Honda Civic → Mall</div>
+        </div>
+        <div style="display:flex;justify-content:space-around;background:#0d0d1a;border-radius:8px;padding:8px 0;margin-top:8px;">
+          <div style="text-align:center;color:#a0c4ff;font-size:10px;">
+            <div style="font-size:18px;">🔍</div>Available
+          </div>
+          <div style="text-align:center;color:#666;font-size:10px;">
+            <div style="font-size:18px;">📁</div>My Jobs
+          </div>
+          <div style="text-align:center;color:#666;font-size:10px;">
+            <div style="font-size:18px;">👤</div>Profile
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Bottom Navigation Bar</h3>
+      <p>3 tabs always visible: Available Jobs, My Jobs (booked), Profile. One-thumb reachability. Standard mobile pattern.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="drawer" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1a1a2e;border-radius:10px;padding:16px;font-family:monospace;font-size:12px;color:#eee;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;">
+        <div style="display:flex;align-items:center;justify-content:space-between;background:#16213e;border-radius:8px;padding:10px;margin-bottom:10px;">
+          <span style="font-size:18px;">☰</span>
+          <span style="color:#a0c4ff;font-weight:bold;">FloviDriver</span>
+          <span style="font-size:14px;">🔔</span>
+        </div>
+        <div style="flex:1;">
+          <div style="background:#0f3460;border-radius:6px;padding:8px;margin:4px 0;font-size:11px;">🔍 Available Jobs</div>
+          <div style="background:#0f3460;border-radius:6px;padding:8px;margin:4px 0;font-size:11px;">📁 My Bookings</div>
+          <div style="background:#0f3460;border-radius:6px;padding:8px;margin:4px 0;font-size:11px;">👤 Profile</div>
+        </div>
+        <div style="color:#666;font-size:10px;text-align:center;">swipe from left or tap ☰</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Side Drawer Menu</h3>
+      <p>Hamburger menu slides in from the left. More screen space for content, but navigation is hidden by default.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="stack" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1a1a2e;border-radius:10px;padding:16px;font-family:monospace;font-size:12px;color:#eee;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;">
+        <div style="background:#16213e;border-radius:8px;padding:10px;margin-bottom:8px;text-align:center;">
+          <div style="color:#a0c4ff;font-weight:bold;font-size:14px;">🔍 Find a Job</div>
+        </div>
+        <div style="flex:1;">
+          <div style="background:#0f3460;border-radius:6px;padding:10px;margin:6px 0;font-size:11px;display:flex;justify-content:space-between;align-items:center;">
+            <span>🚗 Relocate: Ford Focus → Airport</span>
+            <span style="color:#4ade80;font-size:10px;">BOOK →</span>
+          </div>
+          <div style="background:#0f3460;border-radius:6px;padding:10px;margin:6px 0;font-size:11px;display:flex;justify-content:space-between;align-items:center;">
+            <span>🚗 Relocate: Toyota Camry → Downtown</span>
+            <span style="color:#4ade80;font-size:10px;">BOOK →</span>
+          </div>
+        </div>
+        <div style="background:#0d0d1a;border-radius:8px;padding:8px;text-align:center;color:#a0c4ff;font-size:11px;">
+          📁 My Booked Jobs (tap to view)
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Home-First Stack</h3>
+      <p>Available jobs are the hero screen. "My Jobs" is a floating card/button at the bottom. Optimized for drivers who primarily hunt for new jobs.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px;">Click your preferred option, then reply in the terminal.</p>

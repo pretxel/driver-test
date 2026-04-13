@@ -1,0 +1,83 @@
+<h2>Flovi Driver — Full App Design</h2>
+<p class="subtitle">Section 1 of 3: Architecture & Navigation. Review each section and approve before we write the spec.</p>
+
+<div class="section">
+  <h3>Tech Stack</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:12px;">
+    <tr style="border-bottom:1px solid #1b2c3e;">
+      <td style="padding:8px;color:#64b5f6;width:40%;">Framework</td>
+      <td style="padding:8px;">Flutter 3 (Dart)</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1b2c3e;">
+      <td style="padding:8px;color:#64b5f6;">Authentication</td>
+      <td style="padding:8px;">Supabase (Google OAuth via <code>supabase_flutter</code>)</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1b2c3e;">
+      <td style="padding:8px;color:#64b5f6;">State Management</td>
+      <td style="padding:8px;">Riverpod 2 (<code>flutter_riverpod</code> + <code>riverpod_annotation</code>)</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1b2c3e;">
+      <td style="padding:8px;color:#64b5f6;">Navigation</td>
+      <td style="padding:8px;">go_router (side drawer, named routes)</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1b2c3e;">
+      <td style="padding:8px;color:#64b5f6;">HTTP Client</td>
+      <td style="padding:8px;">Dio + Supabase JWT interceptor</td>
+    </tr>
+    <tr>
+      <td style="padding:8px;color:#64b5f6;">Theme</td>
+      <td style="padding:8px;">Dark Navy + Blue (<code>ThemeData.dark()</code> customized)</td>
+    </tr>
+  </table>
+</div>
+
+<div class="section">
+  <h3>Navigation Flow</h3>
+  <div style="background:#0d1b2a;border-radius:10px;padding:16px;font-family:monospace;font-size:11px;color:#e0e8f0;line-height:2;">
+    <div style="color:#64b5f6;">App Start</div>
+    <div style="margin-left:16px;">↓ Check Supabase session</div>
+    <div style="margin-left:32px;">├─ No session → <span style="color:#FFD700;">/login</span> (Google Sign-In)</div>
+    <div style="margin-left:32px;">└─ Has session → <span style="color:#4ade80;">/available-jobs</span> (home)</div>
+    <br/>
+    <div style="color:#64b5f6;">Side Drawer (always accessible after login)</div>
+    <div style="margin-left:16px;">├─ 🔍 Available Jobs → <span style="color:#4ade80;">/available-jobs</span></div>
+    <div style="margin-left:16px;">├─ 📁 My Jobs → <span style="color:#4ade80;">/my-jobs</span></div>
+    <div style="margin-left:16px;">└─ Sign Out → clears session → <span style="color:#FFD700;">/login</span></div>
+    <br/>
+    <div style="color:#64b5f6;">From Available Jobs</div>
+    <div style="margin-left:16px;">└─ Tap job → confirmation dialog → PUT API → update state → show in My Jobs</div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Feature → Teammate Assignment</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:12px;">
+    <tr style="background:#1b2c3e;">
+      <th style="padding:8px;text-align:left;color:#64b5f6;">Feature</th>
+      <th style="padding:8px;text-align:left;color:#64b5f6;">Teammate</th>
+      <th style="padding:8px;text-align:left;color:#64b5f6;">Folder</th>
+    </tr>
+    <tr style="border-bottom:1px solid #1b2c3e;">
+      <td style="padding:8px;">Google Auth + Routing</td>
+      <td style="padding:8px;">auth-agent</td>
+      <td style="padding:8px;font-family:monospace;font-size:10px;">lib/features/auth/ + lib/core/</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1b2c3e;">
+      <td style="padding:8px;">Browse Pending Relocations</td>
+      <td style="padding:8px;">jobs-agent</td>
+      <td style="padding:8px;font-family:monospace;font-size:10px;">lib/features/available_jobs/</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1b2c3e;">
+      <td style="padding:8px;">One-Tap Booking</td>
+      <td style="padding:8px;">booking-agent</td>
+      <td style="padding:8px;font-family:monospace;font-size:10px;">lib/features/available_jobs/ (booking flow)</td>
+    </tr>
+    <tr>
+      <td style="padding:8px;">My Jobs View</td>
+      <td style="padding:8px;">my-jobs-agent</td>
+      <td style="padding:8px;font-family:monospace;font-size:10px;">lib/features/my_jobs/</td>
+    </tr>
+  </table>
+</div>
+
+<p class="subtitle" style="margin-top:16px;">Does this architecture & navigation flow look right? Reply in the terminal to approve or adjust.</p>

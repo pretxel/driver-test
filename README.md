@@ -72,6 +72,9 @@ com.flovi.flovi_driver://login-callback
 # List available devices
 flutter devices
 
+# Run emulator
+flutter emulators --launch Pixel_10
+
 # Run on a specific device
 flutter run -d <device-id>
 ```

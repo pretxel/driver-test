@@ -22,8 +22,7 @@ class RelocationApi {
   /// GET /api/v1/relocations?userId=<id> — returns driver's own jobs
   Future<List<Relocation>> fetchMyRelocations(String userId) async {
     final response = await _dio.get<List<dynamic>>(
-      '/api/v1/relocations',
-      queryParameters: {'userId': userId},
+      '/api/v1/relocations'
     );
     return (response.data ?? [])
         .cast<Map<String, dynamic>>()
@@ -34,7 +33,7 @@ class RelocationApi {
   /// PUT /api/v1/relocations/{id}/confirm — confirms a relocation booking
   Future<Relocation> bookRelocation(String id) async {
     final response = await _dio
-        .put<Map<String, dynamic>>('/api/v1/relocations/$id/confirm');
+        .post<Map<String, dynamic>>('/api/v1/relocations/$id/confirm');
     return Relocation.fromJson(response.data!);
   }
 }

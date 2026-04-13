@@ -1,0 +1,75 @@
+<h2>Flutter Project Architecture</h2>
+<p class="subtitle">Three ways to structure the Flovi Driver app. All use Riverpod + go_router.</p>
+
+<div class="options">
+
+  <div class="option" data-choice="feature-first" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Feature-First (Recommended)</h3>
+      <p>Each feature is a self-contained folder with its own screens, providers, and models. No domain/data layer separation — just clean, practical Flutter.</p>
+      <pre style="background:#0d1b2a;border-radius:6px;padding:10px;font-size:11px;color:#a0c4ff;margin-top:8px;line-height:1.6;">lib/
+├── core/
+│   ├── api/         # HTTP client, endpoints
+│   ├── auth/        # Supabase auth service
+│   └── router/      # go_router setup
+├── features/
+│   ├── auth/        # login screen, auth provider
+│   ├── available_jobs/  # browse pending
+│   ├── my_jobs/         # booked/in-progress
+│   └── profile/
+└── shared/
+    └── widgets/     # reusable UI</pre>
+      <div class="pros-cons" style="margin-top:8px;">
+        <div class="pros"><h4>Pros</h4><ul><li>Easy to navigate</li><li>Feature agents work independently</li><li>No over-engineering</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Less strict separation</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="clean-arch" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Clean Architecture</h3>
+      <p>Strict presentation / domain / data layer separation per feature. Repositories, use cases, entities. Maximum testability and structure.</p>
+      <pre style="background:#0d1b2a;border-radius:6px;padding:10px;font-size:11px;color:#a0c4ff;margin-top:8px;line-height:1.6;">lib/features/available_jobs/
+├── presentation/
+│   ├── screens/
+│   └── providers/
+├── domain/
+│   ├── entities/
+│   └── repositories/  # abstract
+└── data/
+    ├── models/
+    └── repositories/  # concrete</pre>
+      <div class="pros-cons" style="margin-top:8px;">
+        <div class="pros"><h4>Pros</h4><ul><li>Very testable</li><li>Enterprise-grade</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>High boilerplate for 4 screens</li><li>Slower to build</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="flat" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Flat / Type-First</h3>
+      <p>Organized by type — all screens together, all providers together, all models together. Simple, fast to scaffold.</p>
+      <pre style="background:#0d1b2a;border-radius:6px;padding:10px;font-size:11px;color:#a0c4ff;margin-top:8px;line-height:1.6;">lib/
+├── screens/
+│   ├── login_screen.dart
+│   ├── available_jobs_screen.dart
+│   └── my_jobs_screen.dart
+├── providers/
+├── models/
+└── services/</pre>
+      <div class="pros-cons" style="margin-top:8px;">
+        <div class="pros"><h4>Pros</h4><ul><li>Minimal structure</li><li>Fastest to start</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Doesn't scale</li><li>Hard to assign to teams</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px;"><strong>My recommendation: A</strong> — Right balance of structure and speed. Feature folders map cleanly to teammate assignments.</p>
+<p class="subtitle">Click your choice, then reply in the terminal.</p>
