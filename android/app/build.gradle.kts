@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -5,10 +7,19 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+val keyPropertiesFile = rootProject.file("key.properties")
+val keyProperties = Properties().apply {
+    if (keyPropertiesFile.exists()) load(keyPropertiesFile.inputStream())
+}
+
 android {
     namespace = "com.flovi.flovi_driver"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -28,6 +39,18 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        // Inject credentials from key.properties as BuildConfig fields
+        buildConfigField("String", "SUPABASE_URL",
+            "\"${keyProperties["supabaseUrl"] ?: ""}\"")
+        buildConfigField("String", "SUPABASE_ANON_KEY",
+            "\"${keyProperties["supabaseAnonKey"] ?: ""}\"")
+        buildConfigField("String", "GOOGLE_WEB_CLIENT_ID",
+            "\"${keyProperties["googleWebClientId"] ?: ""}\"")
+
+        // Expose googleWebClientId as a manifest placeholder (for google-services.json overrides)
+        manifestPlaceholders["googleWebClientId"] =
+            keyProperties["googleWebClientId"] ?: ""
     }
 
     buildTypes {
