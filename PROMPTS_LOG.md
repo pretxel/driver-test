@@ -59,6 +59,23 @@ A chronological log of every agent action, teammate prompt, and key decision mad
   - `lib/features/available_jobs/available_jobs_screen.dart` — AppBar title, drawer nav label, empty state text all updated to "Available Relocations"
 - **Commit:** `feat: rename Available Jobs to Available Relocations and use GET ?status=PENDING`
 
+### Bug Fix — Relocation model mismatch with real API response
+- **User:** Provided actual API response JSON; fields differed from assumed model
+- **Real API shape:** `id`, `origin`, `destination`, `date`, `notes`, `status`, `userId`, `createdAt`, `updatedAt`
+- **Old model shape (incorrect):** `vehicleMake`, `vehicleModel`, `pickupLocation`, `dropoffLocation`, `created_at` (snake_case)
+- **Root cause:** Model was designed from spec assumptions before seeing real API output. `createdAt` was camelCase (not `created_at`), and vehicle/location fields did not exist in the API.
+- **Changes:**
+  - `lib/core/models/relocation.dart` — Removed vehicle/location fields; added `origin`, `destination` (String), `date` (DateTime), `notes` (String?); fixed `createdAt` key to camelCase
+  - `lib/shared/widgets/job_card.dart` — Title and location rows updated to use `origin`/`destination`; added date row with `Icons.calendar_today`
+  - `lib/features/available_jobs/booking_sheet.dart` — Detail rows updated to origin/destination/date/notes
+  - `test/core/models/relocation_test.dart` — Rewritten with real JSON fixture; 6 tests (added notes test)
+  - `test/shared/widgets/job_card_test.dart` — Updated to check `'Madrid → Valencia'` and origin/destination rows
+  - `test/features/available_jobs/available_jobs_provider_test.dart` — `sampleJob` updated to new constructor
+  - `test/features/available_jobs/booking_sheet_test.dart` — Updated to use origin/destination/date fields
+  - `test/features/my_jobs/my_jobs_provider_test.dart` — Updated to use Spanish cities with new fields
+- **Result:** `flutter analyze` — no issues; `flutter test` — 15/15 passed
+- **Commit:** `fix: update Relocation model to match real API response shape`
+
 ---
 
 ## Teammate Prompts
